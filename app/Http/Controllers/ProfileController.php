@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +14,8 @@ class ProfileController extends Controller
     public function index()
     {
         // Pastikan pengguna sudah login
-        $user = Auth::user();
+        // $user = Auth::user();
+        $user = User::find(Session()->get('id_user'));
         if (!$user) {
             return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
         }

@@ -4,66 +4,93 @@ namespace App\Http\Controllers;
 
 use App\Models\JadwalKalibrasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JadwalKalibrasiController extends Controller
 {
     // Menampilkan semua jadwal kalibrasi
     public function index()
     {
-        $jadwal = JadwalKalibrasi::all();
-        return view('JadwalKalibrasi', compact('jadwal'));
+        $jadwalKalibrasi = JadwalKalibrasi::orderBy('title', 'ASC');
+        $data = [
+            'title'             => 'Kelola Jadwal Kalibrasi',
+            'jadwalKalibrasi'   => $jadwalKalibrasi->get()
+        ];
+        return view('jadwalKalibrasi.index', $data);
     }
 
-    // Menyimpan jadwal baru
     public function store(Request $request)
     {
-        // Validasi input
-        $request->validate([
-            'title' => 'required|string',
-            'start' => 'required|date',
-            'end' => 'nullable|date',
-        ]);
+        if(!$request->title) {
+            $data = [
+                'title'     => 'Kelola Jadwal Kalibrasi',
+                'subTitle'  => 'Tambah Jadwal Kalibrasi',
+                'form'      => 'Tambah'
+            ];
+            return view('jadwalKalibrasi.form', $data);
+        } else {
+            DB::beginTransaction();
+            try {
+                $request->validate([
+                    'title' => 'required|string',
+                    'start' => 'required|date',
+                    'end' => 'nullable|date',
+                ]);
 
-        // Gunakan model yang benar
-        $jadwal = new JadwalKalibrasi();
-        $jadwal->title = $request->title;
-        $jadwal->start = $request->start;
-        $jadwal->end = $request->end ?? $request->start; // default end = start jika null
-        $jadwal->save();
+                $jadwalKalibrasi = new JadwalKalibrasi();
+                $jadwalKalibrasi->title         = $request->title;
+                $jadwalKalibrasi->start         = $request->start;
+                $jadwalKalibrasi->end           = $request->end;
+                $jadwalKalibrasi->save();
 
-        // Kembalikan data ke frontend agar bisa langsung dimasukkan ke kalender
-        return response()->json([
-            'id' => $jadwal->id,
-            'title' => $jadwal->title,
-            'start' => $jadwal->start,
-            'end' => $jadwal->end,
-        ]);
-    }
-    // Fungsi untuk memperbarui jadwal yang ada
-    public function update(Request $request, $id)
-    {
-        // Validasi input
-        $request->validate([
-            'title' => 'required|string',
-            'start' => 'required|date',
-            'end' => 'nullable|date',
-        ]);
-
-        // Cari jadwal berdasarkan ID
-        $jadwal = JadwalKalibrasi::find($id);
-
-        // Jika jadwal tidak ditemukan
-        if (!$jadwal) {
-            return response()->json(['error' => 'Jadwal tidak ditemukan'], 404);
+                DB::commit();
+                return redirect()->route('kelola-jadwal-kalibrasi')->with('success', 'Data berhasil ditambahkan!');
+            } catch (\Throwable $th) {
+                DB::rollBack();
+                return back()->with('fail', $th->getMessage());
+            }
         }
+    }
 
-        // Perbarui data jadwal
-        $jadwal->title = $request->title;
-        $jadwal->start = $request->start;
-        $jadwal->end = $request->end;
-        $jadwal->save();
+    public function update(Request $request, $jadwalKalibrasiId)
+    {
+        if(!$request->title) {
+            $data = [
+                'title'     => 'Kelola Jadwal Kalibrasi',
+                'subTitle'  => 'Edit Jadwal Kalibrasi',
+                'detail'    => JadwalKalibrasi::find($jadwalKalibrasiId),
+                'form'      => 'Edit'
+            ];
+            return view('jadwalKalibrasi.form', $data);
+        } else {
+            DB::beginTransaction();
+            try {
+                $request->validate([
+                    'title' => 'required|string',
+                    'start' => 'required|date',
+                    'end' => 'nullable|date',
+                ]);
 
-        // Kembalikan response dalam format JSON
-        return response()->json($jadwal);
+                $jadwalKalibrasi = JadwalKalibrasi::find($jadwalKalibrasiId);
+                $jadwalKalibrasi->title         = $request->title;
+                $jadwalKalibrasi->start         = $request->start;
+                $jadwalKalibrasi->end           = $request->end;
+                $jadwalKalibrasi->save();
+
+                DB::commit();
+                return redirect()->route('kelola-jadwal-kalibrasi')->with('success', 'Data berhasil diedit!');
+            } catch (\Throwable $th) {
+                DB::rollBack();
+                return back()->with('fail', $th->getMessage());
+            }
+        }
+    }
+
+    public function delete($jadwalKalibrasiId)
+    {
+        $jadwalKalibrasi = JadwalKalibrasi::find($jadwalKalibrasiId);
+        $jadwalKalibrasi->delete();
+
+        return back()->with('success', 'Data berhasil dihapus!');
     }
 }

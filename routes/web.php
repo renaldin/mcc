@@ -15,26 +15,31 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CalibrationScheduleController;
+use App\Http\Controllers\ChecksheetTreatmentController;
+use App\Http\Controllers\ChecksheetTreatmentDetailController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\JadwalKalibrasiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CsTreatmentController;
+use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\DrainScheduleController;
+use App\Http\Controllers\LihatJadwalKalibrasiController;
+use App\Http\Controllers\UserController;
 
-
-
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+// Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+// Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('Auth.profile');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('dashboard', function () {
-        return view('AdminDashboard');
-    })->name('admin.dashboard');
-});
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('dashboard', function () {
+//         return view('AdminDashboard');
+//     })->name('admin.dashboard');
+// });
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
@@ -85,6 +90,53 @@ Route::get('/cs_treatment/{id}/edit', [CsTreatmentController::class, 'edit'])->n
 Route::put('/cs_treatment/{id}', [CsTreatmentController::class, 'update'])->name('cs_treatment.update');
 Route::delete('/cs_treatment/{id}', [CsTreatmentController::class, 'destroy'])->name('cs_treatment.destroy');
 
+Route::get('/kelola-jadwal-kalibrasi', [JadwalKalibrasiController::class, 'index'])->name('kelola-jadwal-kalibrasi');
+Route::get('/tambah-jadwal-kalibrasi', [JadwalKalibrasiController::class, 'store'])->name('tambah-jadwal-kalibrasi');
+Route::post('/tambah-jadwal-kalibrasi', [JadwalKalibrasiController::class, 'store'])->name('tambah-jadwal-kalibrasi');
+Route::get('/edit-jadwal-kalibrasi/{id}', [JadwalKalibrasiController::class, 'update'])->name('edit-jadwal-kalibrasi');
+Route::post('/edit-jadwal-kalibrasi/{id}', [JadwalKalibrasiController::class, 'update'])->name('edit-jadwal-kalibrasi');
+Route::get('/hapus-jadwal-kalibrasi/{id}', [JadwalKalibrasiController::class, 'delete'])->name('hapus-jadwal-kalibrasi');
+
+Route::get('/lihat-jadwal-kalibrasi', [LihatJadwalKalibrasiController::class, 'index'])->name('lihat-jadwal-kalibrasi');
 
 // Route::view('/', 'AdminDashboard');
 Route::view('/', 'dashboard');
+
+Route::group(['middleware' => 'revalidate'], function () {
+    
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
+
+    Route::get('/kelola-user', [UserController::class, 'index'])->name('kelola-user');
+    Route::get('/tambah-user', [UserController::class, 'store'])->name('tambah-user');
+    Route::post('/tambah-user', [UserController::class, 'store']);
+    Route::get('/edit-user/{id}', [UserController::class, 'update'])->name('edit-user');
+    Route::post('/edit-user/{id}', [UserController::class, 'update']);
+    Route::get('/hapus-user/{id}', [UserController::class, 'delete']);
+    
+    Route::get('/kelola-checksheet-treatment', [ChecksheetTreatmentController::class, 'index'])->name('kelola-checksheet-treatment');
+    Route::get('/tambah-checksheet-treatment', [ChecksheetTreatmentController::class, 'store'])->name('tambah-checksheet-treatment');
+    Route::post('/tambah-checksheet-treatment', [ChecksheetTreatmentController::class, 'store'])->name('tambah-checksheet-treatment');
+    Route::get('/edit-checksheet-treatment/{id}', [ChecksheetTreatmentController::class, 'update'])->name('edit-checksheet-treatment');
+    Route::post('/edit-checksheet-treatment/{id}', [ChecksheetTreatmentController::class, 'update']);
+    Route::get('/hapus-checksheet-treatment/{id}', [ChecksheetTreatmentController::class, 'delete']);
+
+    Route::get('/detail-checksheet-treatment/{id}', [ChecksheetTreatmentDetailController::class, 'index'])->name('detail-checksheet-treatment');
+
+    Route::get('/kelola-jadwal-kalibrasi', [CalibrationScheduleController::class, 'index'])->name('kelola-jadwal-kalibrasi');
+    Route::get('/tambah-jadwal-kalibrasi', [CalibrationScheduleController::class, 'store'])->name('tambah-jadwal-kalibrasi');
+    Route::post('/tambah-jadwal-kalibrasi', [CalibrationScheduleController::class, 'store'])->name('tambah-jadwal-kalibrasi');
+    Route::get('/edit-jadwal-kalibrasi/{id}', [CalibrationScheduleController::class, 'update'])->name('edit-jadwal-kalibrasi');
+    Route::post('/edit-jadwal-kalibrasi/{id}', [CalibrationScheduleController::class, 'update']);
+    Route::get('/hapus-jadwal-kalibrasi/{id}', [CalibrationScheduleController::class, 'delete']);
+
+    Route::get('/kelola-jadwal-pengurasan', [DrainScheduleController::class, 'index'])->name('kelola-jadwal-pengurasan');
+    Route::get('/tambah-jadwal-pengurasan', [DrainScheduleController::class, 'store'])->name('tambah-jadwal-pengurasan');
+    Route::post('/tambah-jadwal-pengurasan', [DrainScheduleController::class, 'store'])->name('tambah-jadwal-pengurasan');
+    Route::get('/edit-jadwal-pengurasan/{id}', [DrainScheduleController::class, 'update'])->name('edit-jadwal-pengurasan');
+    Route::post('/edit-jadwal-pengurasan/{id}', [DrainScheduleController::class, 'update']);
+    Route::get('/hapus-jadwal-pengurasan/{id}', [DrainScheduleController::class, 'delete']);
+});

@@ -18,6 +18,7 @@ class User extends Authenticatable
         'phone', // Kolom phone
         'password',
         'role',  // Kolom role
+        'status',
     ];
 
     // Properti tambahan jika diperlukan, seperti hidden attributes
