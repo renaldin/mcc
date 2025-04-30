@@ -4,6 +4,10 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-header">
+            <a href="{{ route('tambah-jadwal-pengurasan') }}" class="btn btn-primary float-right" style="margin-right: 5px;"> Tambah Data</a>
+            <a href="{{ route('kalender-jadwal-pengurasan') }}" class="btn btn-primary float-right" style="margin-right: 5px;"> Kalender</a>
+        </div>
+        <div class="card-header">
             @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
@@ -14,7 +18,6 @@
                     {{ session('fail') }}
                 </div>
             @endif
-            <a href="{{ route('tambah-jadwal-pengurasan') }}" class="btn btn-primary float-right"> Tambah Data</a>
         </div>
         <div class="card-body">
             <table class="table table-bordered" id="data-table-one">
@@ -61,10 +64,12 @@
                                         class="mr-1 btn btn-sm btn-icon btn-danger btn-delete"
                                         data-toggle="tooltip" title="Hapus" class="btn-delete"
                                         data-href="/hapus-jadwal-pengurasan/{{ $item->id }}"
-                                        data-content="Apakah Anda yakin akan hapus data ini?"><span
+                                        data-content="Apakah Anda yakin akan hapus data ini?"
+                                        data-button="Hapus"><span
                                             class="btn-inner"><svg class="btn-delete"
                                                 data-href="/hapus-jadwal-pengurasan/{{ $item->id }}"
                                                 data-content="Apakah Anda yakin akan hapus data ini?"
+                                                data-button="Hapus"
                                                 width="20" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
                                                 <path

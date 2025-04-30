@@ -4,8 +4,7 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-header">
-            <a href="{{ route('tambah-jadwal-kalibrasi') }}" class="btn btn-primary float-right" style="margin-right: 5px;"> Tambah Data</a>
-            <a href="{{ route('kalender-jadwal-kalibrasi') }}" class="btn btn-primary float-right" style="margin-right: 5px;"> Kalender</a>
+            <a href="{{ route('tambah-checksheet-pengecheckan') }}" class="btn btn-primary float-right" style="margin-right: 5px;"> Tambah Data</a>
         </div>
         <div class="card-header">
             @if (session('success'))
@@ -24,9 +23,15 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Alat</th>
                         <th>Tanggal</th>
-                        <th>Status</th>
+                        <th>Nama Part</th>
+                        <th>Air Pocket</th>
+                        <th>Gumpal</th>
+                        <th>Bercak</th>
+                        <th>Tipis</th>
+                        <th>Meler</th>
+                        <th>Tunggu Repair</th>
+                        <th>Total Check</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -34,15 +39,21 @@
                     @php
                         $no = 1;
                     @endphp
-                    @foreach ($calibrationScheduleList as $item)
+                    @foreach ($checksheetCheckingList as $item)
                         <tr>
                             <td>{{ $no++ }}</td>
-                            <td>{{ $item->tool }}</td>
                             <td>{{ date('d F Y', strtotime($item->date)) }}</td>
-                            <td>{{ $item->status }}</td>
+                            <td>{{ $item->part_name }}</td>
+                            <td>{{ $item->air_pocket }}</td>
+                            <td>{{ $item->gumpal }}</td>
+                            <td>{{ $item->bercak }}</td>
+                            <td>{{ $item->tipis }}</td>
+                            <td>{{ $item->meler }}</td>
+                            <td>{{ $item->tunggu_repair }}</td>
+                            <td>{{ $item->total_check }}</td>
                             <td>
                                 <div class="flex align-items-center list-user-action">
-                                    <a href="/edit-jadwal-kalibrasi/{{ $item->id }}"
+                                    <a href="/edit-checksheet-pengecheckan/{{ $item->id }}"
                                         class="btn btn-sm btn-icon btn-success" data-toggle="tooltip"
                                         title="Edit"><span class="btn-inner"><svg width="20"
                                                 viewBox="0 0 24 24" fill="none"
@@ -63,11 +74,11 @@
                                     <button type="button"
                                         class="mr-1 btn btn-sm btn-icon btn-danger btn-delete"
                                         data-toggle="tooltip" title="Hapus" class="btn-delete"
-                                        data-href="/hapus-jadwal-kalibrasi/{{ $item->id }}"
+                                        data-href="/hapus-checksheet-pengecheckan/{{ $item->id }}"
                                         data-content="Apakah Anda yakin akan hapus data ini?"
                                         data-button="Hapus"><span
                                             class="btn-inner"><svg class="btn-delete"
-                                                data-href="/hapus-jadwal-kalibrasi/{{ $item->id }}"
+                                                data-href="/hapus-checksheet-pengecheckan/{{ $item->id }}"
                                                 data-content="Apakah Anda yakin akan hapus data ini?"
                                                 data-button="Hapus"
                                                 width="20" viewBox="0 0 24 24" fill="none"

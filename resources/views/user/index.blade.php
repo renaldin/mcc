@@ -68,10 +68,12 @@
                                             class="mr-1 btn btn-sm btn-icon btn-danger btn-delete"
                                             data-toggle="tooltip" title="Hapus" class="btn-delete"
                                             data-href="/hapus-user/{{ $item->id }}"
-                                            data-content="Apakah Anda yakin akan hapus data ini?"><span
+                                            data-content="Apakah Anda yakin akan hapus data ini?"
+                                            data-button="Hapus"><span
                                                 class="btn-inner"><svg class="btn-delete"
                                                     data-href="/hapus-user/{{ $item->id }}"
                                                     data-content="Apakah Anda yakin akan hapus data ini?"
+                                                    data-button="Hapus"
                                                     width="20" viewBox="0 0 24 24" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
                                                     <path

@@ -15,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CalendarCalibrationScheduleController;
+use App\Http\Controllers\CalendarDrainScheduleController;
 use App\Http\Controllers\CalibrationScheduleController;
+use App\Http\Controllers\ChecksheetCheckingController;
 use App\Http\Controllers\ChecksheetTreatmentController;
 use App\Http\Controllers\ChecksheetTreatmentDetailController;
 use App\Http\Controllers\MaintenanceController;
@@ -133,10 +136,21 @@ Route::group(['middleware' => 'revalidate'], function () {
     Route::post('/edit-jadwal-kalibrasi/{id}', [CalibrationScheduleController::class, 'update']);
     Route::get('/hapus-jadwal-kalibrasi/{id}', [CalibrationScheduleController::class, 'delete']);
 
+    Route::get('/kalender-jadwal-kalibrasi', [CalendarCalibrationScheduleController::class, 'index'])->name('kalender-jadwal-kalibrasi');
+    
+    Route::get('/kalender-jadwal-pengurasan', [CalendarDrainScheduleController::class, 'index'])->name('kalender-jadwal-pengurasan');
+
     Route::get('/kelola-jadwal-pengurasan', [DrainScheduleController::class, 'index'])->name('kelola-jadwal-pengurasan');
     Route::get('/tambah-jadwal-pengurasan', [DrainScheduleController::class, 'store'])->name('tambah-jadwal-pengurasan');
     Route::post('/tambah-jadwal-pengurasan', [DrainScheduleController::class, 'store'])->name('tambah-jadwal-pengurasan');
     Route::get('/edit-jadwal-pengurasan/{id}', [DrainScheduleController::class, 'update'])->name('edit-jadwal-pengurasan');
     Route::post('/edit-jadwal-pengurasan/{id}', [DrainScheduleController::class, 'update']);
     Route::get('/hapus-jadwal-pengurasan/{id}', [DrainScheduleController::class, 'delete']);
+
+    Route::get('/kelola-checksheet-pengecheckan', [ChecksheetCheckingController::class, 'index'])->name('kelola-checksheet-pengecheckan');
+    Route::get('/tambah-checksheet-pengecheckan', [ChecksheetCheckingController::class, 'store'])->name('tambah-checksheet-pengecheckan');
+    Route::post('/tambah-checksheet-pengecheckan', [ChecksheetCheckingController::class, 'store'])->name('tambah-checksheet-pengecheckan');
+    Route::get('/edit-checksheet-pengecheckan/{id}', [ChecksheetCheckingController::class, 'update'])->name('edit-checksheet-pengecheckan');
+    Route::post('/edit-checksheet-pengecheckan/{id}', [ChecksheetCheckingController::class, 'update']);
+    Route::get('/hapus-checksheet-pengecheckan/{id}', [ChecksheetCheckingController::class, 'delete']);
 });
