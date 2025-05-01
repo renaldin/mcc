@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-header">
             @if (session('success'))
-                <div class="alert alert-danger">
+                <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
@@ -47,23 +47,24 @@
                                 $no = 1;
                             @endphp
                             @foreach ($checksheetTreatmentDetailList as $item)
-                                <form action="" method="POST">
+                                <form action="/edit-detail-checksheet-treatment/{{$item->id}}" method="POST">
+                                    @csrf
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $item->process }}</td>
                                         <td>{{ $item->parameter }}</td>
-                                        <td>{{ $item->standard }}</td>
+                                        <td>{{ $item->standard ? $item->standard : $item->min_standard . ' - ' . $item->max_standard . ' ' . $item->unit}}</td>
                                         <td>{{ $item->tools }}</td>
                                         <td>
-                                            <input type="number" class="form-control @error('inspection_result_1') is-invalid @enderror" id="inspection_result_1_{{$item->id}}" name="inspection_result_1" value="@if($item->inspection_result_1){{ $item->inspection_result_1 }}@endif" required>
+                                            <input type="number" class="form-control @error('inspection_result_1') is-invalid @enderror" id="inspection_result_1_{{$item->id}}" name="inspection_result_1" value="@if($item->inspection_result_1 !== null){{ $item->inspection_result_1 }}@endif">
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control @error('inspection_result_2') is-invalid @enderror" id="inspection_result_2_{{$item->id}}" name="inspection_result_2" value="@if($item->inspection_result_2){{ $item->inspection_result_2 }}@endif" required>
+                                            <input type="number" class="form-control @error('inspection_result_2') is-invalid @enderror" id="inspection_result_2_{{$item->id}}" name="inspection_result_2" value="@if($item->inspection_result_2 !== null){{ $item->inspection_result_2 }}@endif">
                                         </td>
                                         <td>{{ $item->judgement }}</td>
                                         <td>{{ $item->recommendation }}</td>
                                         <td>
-
+                                            <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
                                         </td>
                                     </tr>
                                 </form>

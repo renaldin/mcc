@@ -128,6 +128,7 @@ Route::group(['middleware' => 'revalidate'], function () {
     Route::get('/hapus-checksheet-treatment/{id}', [ChecksheetTreatmentController::class, 'delete']);
 
     Route::get('/detail-checksheet-treatment/{id}', [ChecksheetTreatmentDetailController::class, 'index'])->name('detail-checksheet-treatment');
+    Route::post('/edit-detail-checksheet-treatment/{id}', [ChecksheetTreatmentDetailController::class, 'update'])->name('edit-detail-checksheet-treatment');
 
     Route::get('/kelola-jadwal-kalibrasi', [CalibrationScheduleController::class, 'index'])->name('kelola-jadwal-kalibrasi');
     Route::get('/tambah-jadwal-kalibrasi', [CalibrationScheduleController::class, 'store'])->name('tambah-jadwal-kalibrasi');
