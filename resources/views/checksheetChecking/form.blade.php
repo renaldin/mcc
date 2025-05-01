@@ -29,27 +29,27 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="air_pocket">Air Pocket</label>
-                                <input type="text" class="form-control @error('air_pocket') is-invalid @enderror" id="air_pocket" name="air_pocket" value="@if($form === 'Tambah'){{ old('part_name') }}@elseif($form === 'Edit' || $form === 'Detail'){{$detail->air_pocket}}@endif" @if($form === 'Detail') disabled @endif placeholder="Masukkan Air Pocket" required>
+                                <input type="number" class="form-control @error('air_pocket') is-invalid @enderror" id="air_pocket" name="air_pocket" value="@if($form === 'Tambah'){{ old('part_name') }}@elseif($form === 'Edit' || $form === 'Detail'){{$detail->air_pocket}}@endif" @if($form === 'Detail') disabled @endif placeholder="Masukkan Air Pocket" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="gumpal">Gumpal</label>
-                                <input type="text" class="form-control @error('gumpal') is-invalid @enderror" id="gumpal" name="gumpal" value="@if($form === 'Tambah'){{ old('part_name') }}@elseif($form === 'Edit' || $form === 'Detail'){{$detail->gumpal}}@endif" @if($form === 'Detail') disabled @endif placeholder="Masukkan Gumpal" required>
+                                <input type="number" class="form-control @error('gumpal') is-invalid @enderror" id="gumpal" name="gumpal" value="@if($form === 'Tambah'){{ old('part_name') }}@elseif($form === 'Edit' || $form === 'Detail'){{$detail->gumpal}}@endif" @if($form === 'Detail') disabled @endif placeholder="Masukkan Gumpal" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="bercak">Bercak</label>
-                                <input type="text" class="form-control @error('bercak') is-invalid @enderror" id="bercak" name="bercak" value="@if($form === 'Tambah'){{ old('part_name') }}@elseif($form === 'Edit' || $form === 'Detail'){{$detail->bercak}}@endif" @if($form === 'Detail') disabled @endif placeholder="Masukkan Bercak" required>
+                                <input type="number" class="form-control @error('bercak') is-invalid @enderror" id="bercak" name="bercak" value="@if($form === 'Tambah'){{ old('part_name') }}@elseif($form === 'Edit' || $form === 'Detail'){{$detail->bercak}}@endif" @if($form === 'Detail') disabled @endif placeholder="Masukkan Bercak" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="tipis">Tipis</label>
-                                <input type="text" class="form-control @error('tipis') is-invalid @enderror" id="tipis" name="tipis" value="@if($form === 'Tambah'){{ old('part_name') }}@elseif($form === 'Edit' || $form === 'Detail'){{$detail->tipis}}@endif" @if($form === 'Detail') disabled @endif placeholder="Masukkan Tipis" required>
+                                <input type="number" class="form-control @error('tipis') is-invalid @enderror" id="tipis" name="tipis" value="@if($form === 'Tambah'){{ old('part_name') }}@elseif($form === 'Edit' || $form === 'Detail'){{$detail->tipis}}@endif" @if($form === 'Detail') disabled @endif placeholder="Masukkan Tipis" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="meler">Meler</label>
-                                <input type="text" class="form-control @error('meler') is-invalid @enderror" id="meler" name="meler" value="@if($form === 'Tambah'){{ old('part_name') }}@elseif($form === 'Edit' || $form === 'Detail'){{$detail->meler}}@endif" @if($form === 'Detail') disabled @endif placeholder="Masukkan Meler" required>
+                                <input type="number" class="form-control @error('meler') is-invalid @enderror" id="meler" name="meler" value="@if($form === 'Tambah'){{ old('part_name') }}@elseif($form === 'Edit' || $form === 'Detail'){{$detail->meler}}@endif" @if($form === 'Detail') disabled @endif placeholder="Masukkan Meler" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="tunggu_repair">Tunggu Repair</label>
-                                <input type="text" class="form-control @error('tunggu_repair') is-invalid @enderror" id="tunggu_repair" name="tunggu_repair" value="@if($form === 'Tambah'){{ old('part_name') }}@elseif($form === 'Edit' || $form === 'Detail'){{$detail->tunggu_repair}}@endif" @if($form === 'Detail') disabled @endif placeholder="Masukkan Tunggu Repair" required>
+                                <input type="number" class="form-control @error('tunggu_repair') is-invalid @enderror" id="tunggu_repair" name="tunggu_repair" value="@if($form === 'Tambah'){{ old('part_name') }}@elseif($form === 'Edit' || $form === 'Detail'){{$detail->tunggu_repair}}@endif" @if($form === 'Detail') disabled @endif placeholder="Masukkan Tunggu Repair" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="total_check">Total Check</label>
@@ -58,7 +58,6 @@
 
                             <div class="form-group col-md-12">
                                 <button type="submit" class="btn btn-primary mb-1">Simpan</button>
-                                <button type="reset" class="btn btn-danger mb-1">Reset</button>
                                 <a href="{{ route('kelola-checksheet-pengecheckan') }}" class="btn btn-secondary mb-1">Kembali</a>
                             </div>
                         </div>

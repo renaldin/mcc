@@ -91,7 +91,7 @@
 
     <!-- Hero Section -->
     <div class="hero">
-        <h1>Selamat Datang di Sistem Informasi Manajemen Pemeliharaan Proses Cathodic Electro Deposition Painting Pada PT. Masato Catur Coating</h1>
+        <h1>Selamat Datang di Sistem Informasi Manajemen Pemeliharaan  Cathodic Electro Deposition Painting Pada PT. Masato Catur Coating</h1>
         <p>Kelola data dan informasi perusahaan dengan mudah dan efisien menggunakan sistem ini.</p>
     </div>
 

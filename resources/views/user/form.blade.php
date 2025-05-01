@@ -55,7 +55,6 @@
 
                             <div class="form-group col-md-12">
                                 <button type="submit" class="btn btn-primary mb-1">Simpan</button>
-                                <button type="reset" class="btn btn-danger mb-1">Reset</button>
                                 <a href="{{ route('kelola-user') }}" class="btn btn-secondary mb-1">Kembali</a>
                             </div>
                         </div>

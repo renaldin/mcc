@@ -117,7 +117,7 @@
        with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="{{ route('dashboard') }}" class="nav-link">
-                        <i class="nav-icon fas fa-tools"></i>
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p class="d-inline ml-2">Dashboard</p>
                     </a>
                 </li>
@@ -131,34 +131,58 @@
                 @if ($user->role == 'Admin')
                     <li class="nav-item">
                         <a href="{{ route('kelola-user') }}" class="nav-link @if($title == 'Kelola User') active @endif">
-                            <i class="nav-icon fas fa-power-off"></i>
+                            <i class="nav-icon fas fa-user"></i>
                             <p class="d-inline ml-2">Kelola User</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p class="d-inline ml-2">Laporan Check Sheet Treatment</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p class="d-inline ml-2">Laporan Check Sheet Pengecekan</p>
                         </a>
                     </li>
                 @elseif ($user->role == 'QC')
                     <li class="nav-item">
-                        <a href="{{ route('kelola-checksheet-treatment') }}" class="nav-link @if($title == 'Kelola Checksheet Treatment' || $title == 'Detail Checksheet Treatment') active @endif">
-                            <i class="nav-icon fas fa-power-off"></i>
-                            <p class="d-inline ml-2">Checksheet Treatment</p>
+                        <a href="{{ route('kelola-checksheet-treatment') }}" class="nav-link @if($title == 'Kelola Check sheet Treatment' || $title == 'Detail Check sheet Treatment') active @endif">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p class="d-inline ml-2">Kelola Check Sheet Treatment</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('kelola-checksheet-pengecheckan') }}" class="nav-link @if($title == 'Kelola Checksheet Pengecheckan') active @endif">
-                            <i class="nav-icon fas fa-power-off"></i>
-                            <p class="d-inline ml-2">Checksheet Check</p>
+                            <i class="nav-icon fas fa-table"></i>
+                            <p class="d-inline ml-2">Kelola Check Sheet Pengecekan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p class="d-inline ml-2">Laporan Check Sheet Treatment</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p class="d-inline ml-2">Laporan Check Sheet Pengecekan</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('kelola-jadwal-kalibrasi') }}" class="nav-link @if($title == 'Kelola Jadwal Kalibrasi' || $title == 'Kalender Jadwal Kalibrasi') active @endif">
-                            <i class="nav-icon fas fa-power-off"></i>
-                            <p class="d-inline ml-2">Jadwal Kalibrasi</p>
+                            <i class="nav-icon fas fa-tools"></i>
+                            <p class="d-inline ml-2">Kelola Jadwal Kalibrasi Alat</p>
                         </a>
                     </li>
                 @elseif ($user->role == 'Maintenance')
                     <li class="nav-item">
                         <a href="{{ route('kelola-jadwal-pengurasan') }}" class="nav-link @if($title == 'Kelola Jadwal Pengurasan' || $title == 'Kalender Jadwal Pengurasan') active @endif">
-                            <i class="nav-icon fas fa-power-off"></i>
-                            <p class="d-inline ml-2">Jadwal Pengurasan</p>
+                            <i class="nav-icon fas fa-tools"></i>
+                            <p class="d-inline ml-2">Kelola Jadwal Pengurasan Tangki</p>
                         </a>
                     </li>
                 @else
@@ -172,14 +196,14 @@
                     <li class="nav-item">
                         <a href="{{ route('cs_treatment.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
-                            <p class="d-inline ml-2">Kelola Checksheet Treatment</p>
+                            <p class="d-inline ml-2">Kelola Check sheet Treatment</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
-                                Kelola Checksheet Pengecekan
+                                Kelola Check sheet Pengecekan
                             </p>
                         </a>
                     </li>
@@ -198,7 +222,7 @@
                     <li class="nav-item">
                         <a href="{{ route('kelola-jadwal-kalibrasi') }}" class="nav-link @if($title == 'Kelola Jadwal Kalibrasi') active @endif">
                             <i class="nav-icon fas fa-tools"></i>
-                            <p class="d-inline ml-2">Kelola Jadwal Kalibrasi</p>
+                            <p class="d-inline ml-2">Kelola Jadwal Kalibrasi Alat</p>
                         </a>
                     </li>
                     <li class="nav-item">
