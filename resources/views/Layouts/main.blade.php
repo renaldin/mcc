@@ -1,3 +1,10 @@
+@php
+    $notifCalibratioSchedule   = \App\Models\CalibrationSchedule::where('date', date('Y-m-d'))->where('status', 'Belum Dilakukan')->orderBy('id', 'DESC')->get();
+    $countNotifCalibratioSchedule  = \App\Models\CalibrationSchedule::where('date', date('Y-m-d'))->where('status', 'Belum Dilakukan')->count();
+    $notifDrainSchedule   = \App\Models\DrainSchedule::where('date', date('Y-m-d'))->where('status', 'Belum Dilakukan')->orderBy('id', 'DESC')->get();
+    $countNotifDrainSchedule  = \App\Models\DrainSchedule::where('date', date('Y-m-d'))->where('status', 'Belum Dilakukan')->count();
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,56 +47,55 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <!-- Navbar Search -->
-        <li class="nav-item">
-            <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                <i class="fas fa-search"></i>
-            </a>
-            <div class="navbar-search-block">
-                <form class="form-inline">
-                    <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-navbar" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                            <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </li>
 
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">5 Notifikasi</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-item dropdown-header">5 Notifikas</span>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 2 pesan baru
-                    <span class="float-right text-muted text-sm">3 menit yang lalu</span>
+        @if ($title === 'Kelola Jadwal Kalibrasi' || $title === 'Kalender Jadwal Kalibrasi' || $title === 'Edit Jadwal Kalibrasi' || $title === 'Tambah Jadwal Kalibrasi')
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="far fa-bell"></i>
+                    <span class="badge badge-warning navbar-badge">{{$countNotifCalibratioSchedule}} Notifikasi</span>
                 </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-file mr-2"></i> 1 laporan baru
-                    <span class="float-right text-muted text-sm">2 hari yang lalu</span>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <span class="dropdown-item dropdown-header">{{$countNotifCalibratioSchedule}} Notifikas</span>
+                    <div class="dropdown-divider"></div>
+                    @foreach ($notifCalibratioSchedule as $item)
+                        <a href="/edit-jadwal-kalibrasi/{{ $item->id }}" class="dropdown-item">
+                            <i class="fas fa-file mr-2"></i> {{$item->tool}}
+                            <span class="float-right text-muted text-sm">{{date('d F Y', strtotime($item->date))}}</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                    @endforeach
+                    <a href="{{ route('kelola-jadwal-kalibrasi') }}" class="dropdown-item dropdown-footer">Lihat semua</a>
+                </div>
+            </li>
+        @endif
+
+        @if ($title === 'Kelola Jadwal Pengurasan' || $title === 'Kalender Jadwal Pengurasan' || $title === 'Edit Jadwal Pengurasan' || $title === 'Tambah Jadwal Pengurasan')
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="far fa-bell"></i>
+                    <span class="badge badge-warning navbar-badge">{{$countNotifDrainSchedule}} Notifikasi</span>
                 </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">Lihat semua notifikasi</a>
-            </div>
-        </li>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <span class="dropdown-item dropdown-header">{{$countNotifDrainSchedule}} Notifikas</span>
+                    <div class="dropdown-divider"></div>
+                    @foreach ($notifDrainSchedule as $item)
+                        <a href="/edit-jadwal-pengurasan/{{ $item->id }}" class="dropdown-item">
+                            <i class="fas fa-file mr-2"></i> {{$item->tangki}}
+                            <span class="float-right text-muted text-sm">{{date('d F Y', strtotime($item->date))}}</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                    @endforeach
+                    <a href="{{ route('kelola-jadwal-pengurasan') }}" class="dropdown-item dropdown-footer">Lihat semua</a>
+                </div>
+            </li>
+        @endif
+
         <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#"
-                role="button">
-                <i class="fas fa-th-large"></i>
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
+        
     </ul>
 </nav>
 <!-- /.navbar -->
