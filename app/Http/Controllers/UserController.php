@@ -32,7 +32,7 @@ class UserController extends Controller
             return redirect()->route('login');
         }
 
-        if(!$request->name) {
+        if (!$request->name) {
             $data = [
                 'title'     => 'Kelola User',
                 'subTitle'  => 'Tambah User',
@@ -55,7 +55,7 @@ class UserController extends Controller
                 $userCheck = User::where('email', $request->email)->first();
                 if ($userCheck) {
                     DB::rollBack();
-                    return back()->with('fail', 'User dengan email '.$request->email.' sudah ada!');
+                    return back()->with('fail', 'User dengan email ' . $request->email . ' sudah ada!');
                 }
 
                 $user = new User();
@@ -82,7 +82,7 @@ class UserController extends Controller
             return redirect()->route('login');
         }
 
-        if(!$request->name) {
+        if (!$request->name) {
             $data = [
                 'title'     => 'Kelola User',
                 'subTitle'  => 'Edit User',
@@ -132,5 +132,88 @@ class UserController extends Controller
         $user->delete();
 
         return back()->with('success', 'Data berhasil dihapus!');
+    }
+
+    public function profileQC()
+    {
+        // Pastikan role adalah 'Quality Control'
+        if (!session()->get('role') || session()->get('role') !== 'QC') {
+            return redirect()->route('login');
+        }
+
+        $user = User::find(session()->get('id_user'));  // Ambil data user berdasarkan session
+
+        return view('user.profile_qc', [
+            'title' => 'Profil Quality Control',
+            'user' => $user
+        ]);
+    }
+
+    // Update profil QC
+    public function updateProfileQC(Request $request)
+    {
+        // Validasi data yang diterima dari form
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'password' => 'nullable|min:6|confirmed', // password opsional, tapi jika ada harus valid
+        ]);
+
+        // Ambil data user yang login
+        $user = User::find(session()->get('id_user'));
+
+        // Update data user
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+
+        // Jika password diubah, update password
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save(); // Simpan perubahan ke database
+
+        return redirect()->route('profile.qc')->with('success', 'Profil berhasil diperbarui!');
+    }
+
+    public function profileMaintenance()
+    {
+        if (!session()->get('role') || session()->get('role') !== 'Maintenance') {
+            return redirect()->route('login');
+        }
+
+        $user = User::find(session()->get('id_user'));
+
+        return view('user.profile_maintenance', [
+            'title' => 'Profil Maintenance',
+            'user' => $user
+        ]);
+    }
+
+    // Update profil Maintenance
+    public function updateProfileMaintenance(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'password' => 'nullable|min:6|confirmed',
+        ]);
+
+        $user = User::find(session()->get('id_user'));
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return redirect()->route('profile.maintenance')->with('success', 'Profil berhasil diperbarui!');
     }
 }

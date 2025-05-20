@@ -7,6 +7,7 @@ use App\Models\ChecksheetTreatmentDetail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ChecksheetTreatmentController extends Controller
 {
@@ -335,4 +336,32 @@ class ChecksheetTreatmentController extends Controller
 
         return back()->with('success', 'Data berhasil dihapus!');
     }
+
+    public function laporan()
+{
+    $checksheetTreatmentList = ChecksheetTreatment::orderBy('date', 'desc')->get();
+    $user = User::find(Session()->get('id_user'));
+
+    return view('checksheetTreatment.laporan', [
+        'checksheetTreatmentList' => $checksheetTreatmentList,
+        'title' => 'Laporan Checksheet Treatment',
+        'user' => $user
+    ]);
+}
+
+public function cetakPDF()
+{
+    $checksheetTreatmentList = ChecksheetTreatment::orderBy('date', 'desc')->get();
+    $user = User::find(Session()->get('id_user'));
+
+    $pdf = Pdf::loadView('checksheetTreatment.laporan_pdf', [
+        'checksheetTreatmentList' => $checksheetTreatmentList,
+        'title' => 'Laporan Checksheet Treatment',
+        'user' => $user
+    ]);
+
+    return $pdf->download('laporan-checksheet-treatment.pdf');
+
+}
+
 }

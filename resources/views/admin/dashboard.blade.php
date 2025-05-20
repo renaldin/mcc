@@ -1,30 +1,52 @@
 @extends('Layouts.main')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <!-- Small boxes (Stat box) -->
-        <div class="col-lg-3 col-md-6 col-12 mb-3">
-            <!-- small box -->
-            <div class="small-box bg-success">
-                <div class="inner">
-                    <h1>Poin tangki sesuai standart</h1>
-                </div>
-                <a href="#" class="small-box-footer">Informasi lengkap <i
-                        class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-12 mb-3">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-                <div class="inner">
-                    <h1>Poin tangki tidak sesuai standart</h1>
-                </div>
-                <a href="#" class="small-box-footer">Informasi lengkap<i
-                        class="fas fa-arrow-circle-right"></i></a>
-            </div>
+    <style>
+        .dashboard-container {
+            background: linear-gradient(135deg, #f0f2f5 60%, #e1e5ea 100%);
+            /* Gradien lembut */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .welcome-card {
+            background-color: #ffffff;
+            padding: 60px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .welcome-icon {
+            font-size: 72px;
+            color: #007bff;
+            /* Warna primer yang menarik */
+            margin-bottom: 20px;
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            color: #343a40;
+            /* Warna teks utama */
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.1rem;
+            color: #6c757d;
+            /* Warna teks sekunder */
+        }
+    </style>
+
+    <div class="dashboard-container">
+        <div class="welcome-card">
+            <i class="fas fa-tachometer-alt welcome-icon"></i>
+            <h1 class="welcome-title">Selamat Datang di Dashboard Admin</h1>
+            <p class="welcome-subtitle">Hanya digunakan oleh Admin</p>
         </div>
     </div>
-</div>
-
 @endsection

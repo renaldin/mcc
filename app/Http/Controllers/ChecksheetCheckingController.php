@@ -6,6 +6,7 @@ use App\Models\ChecksheetChecking;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ChecksheetCheckingController extends Controller
 {
@@ -134,5 +135,33 @@ class ChecksheetCheckingController extends Controller
         $checksheetChecking->delete();
 
         return back()->with('success', 'Data berhasil dihapus!');
+    }  
+
+    public function laporan()
+    {
+        $checksheetCheckingList = ChecksheetChecking::orderBy('date', 'desc')->get();
+        $user = User::find(Session()->get('id_user'));
+        
+        return view('checksheetChecking.laporan', [
+            'checksheetCheckingList' => $checksheetCheckingList,
+            'title' => 'Laporan Checksheet Pengecekan',
+            'user' => $user
+        ]);
     }
+
+    public function cetakPDF()
+{
+    $checksheetCheckingList = ChecksheetChecking::orderBy('date', 'desc')->get();
+    $user = User::find(Session()->get('id_user'));
+
+    $pdf = Pdf::loadView('checksheetChecking.laporan_pdf', [
+        'checksheetCheckingList' => $checksheetCheckingList,
+        'title' => 'Laporan Checksheet Pengecekan',
+        'user' => $user
+    ]);
+    
+    return $pdf->download('laporan-checksheet-pengecekan.pdf');
+
+}
+
 }
