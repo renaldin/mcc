@@ -659,25 +659,25 @@ class ChecksheetTreatmentDetailController extends Controller
 
     public function cetakPDF($treatmentId)
     {
-    // Ambil data treatment berdasarkan ID
-    $checksheetTreatment = ChecksheetTreatment::findOrFail($treatmentId);
+        // Ambil data treatment berdasarkan ID
+        $checksheetTreatment = ChecksheetTreatment::findOrFail($treatmentId);
 
-    // Ambil semua detail yang berelasi dengan treatment ini
-    $details = ChecksheetTreatmentDetail::where('checksheet_treatment_id', $treatmentId)->get();
+        // Ambil semua detail yang berelasi dengan treatment ini
+        $details = ChecksheetTreatmentDetail::where('checksheet_treatment_id', $treatmentId)->get();
 
-    // Ambil data user
-    $user = User::find(session()->get('id_user'));
+        // Ambil data user
+        $user = User::find(session()->get('id_user'));
 
-    // Buat PDF
-    $pdf = Pdf::loadView('checksheetTreatment.laporan_pdf', [
-        'checksheetTreatment' => $checksheetTreatment,
-        'details' => $details,
-        'title' => 'Laporan Checksheet Treatment',
-        'user' => $user
-    ]);
+        // Buat PDF
+        $pdf = Pdf::loadView('checksheetTreatment.laporan_pdf', [
+            'checksheetTreatment' => $checksheetTreatment,
+            'details' => $details,
+            'title' => 'Laporan Checksheet Treatment',
+            'user' => $user
+        ]);
 
-    return $pdf->download('laporan-checksheet-treatment-' . $treatmentId . '.pdf');
-}
+        return $pdf->download('laporan-checksheet-treatment-' . $treatmentId . '.pdf');
+    }
 
 
 }

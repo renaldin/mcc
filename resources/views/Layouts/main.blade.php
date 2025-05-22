@@ -505,6 +505,7 @@
                                     <p>${deleteModalContent}</p>
                                 </div>
                                 <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <a href="${deleteModalHref}" type="button" class="btn btn-danger">${deleteButton ? deleteButton : 'Hapus'}</a>
                                 </div>
                             </div>

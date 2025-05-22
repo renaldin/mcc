@@ -72,6 +72,10 @@
                         </tbody>
                     </table>
                 </div>
+                <br>
+                <div class="forn-group">
+                    <a href="{{ route('kelola-checksheet-treatment') }}" class="btn btn-light">Kembali</a>
+                </div>
             </div>
         </div>
     </div>
