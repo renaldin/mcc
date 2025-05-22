@@ -255,7 +255,7 @@
                             </li>
                         @endif
                         <li class="nav-item">
-                            <a class="nav-link btn-delete" class="nav-link" data-href="{{ route('logout') }}"
+                            <a class="nav-link btn-logout" class="nav-link" data-href="{{ route('logout') }}"
                                 data-content="Apakah Anda yakin akan logout?" data-button="Iya">
                                 <i class="nav-icon fas fa-power-off"></i>
                                 <p class="d-inline ml-2">Logout</p>
@@ -500,6 +500,43 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Hapus</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <p>${deleteModalContent}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a href="${deleteModalHref}" type="button" class="btn btn-danger">${deleteButton ? deleteButton : 'Hapus'}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                    document.body.insertAdjacentHTML('beforeend', modalHtml);
+                    $('#deleteModal').modal('show');
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.addEventListener('click', function(event) {
+                if (event.target.classList.contains('btn-logout')) {
+                    const deleteModalHref = event.target.getAttribute('data-href');
+                    const deleteModalContent = event.target.getAttribute('data-content');
+                    const deleteButton = event.target.getAttribute('data-button') || null;
+
+                    const existingModal = document.getElementById('deleteModal');
+                    if (existingModal) {
+                        existingModal.remove();
+                    }
+
+                    const modalHtml = `
+                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
                                 </div>
                                 <div class="modal-body">
                                     <p>${deleteModalContent}</p>
