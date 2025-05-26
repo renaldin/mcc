@@ -91,7 +91,9 @@ Route::group(['middleware' => 'revalidate'], function () {
     Route::post('/tambah-jadwal-kalibrasi', [CalibrationScheduleController::class, 'store'])->name('tambah-jadwal-kalibrasi');
     Route::get('/edit-jadwal-kalibrasi/{id}', [CalibrationScheduleController::class, 'update'])->name('edit-jadwal-kalibrasi');
     Route::post('/edit-jadwal-kalibrasi/{id}', [CalibrationScheduleController::class, 'update']);
+    Route::get('/detail-jadwal-kalibrasi/{id}', [CalibrationScheduleController::class, 'detail'])->name('detail-jadwal-kalibrasi');
     Route::get('/hapus-jadwal-kalibrasi/{id}', [CalibrationScheduleController::class, 'delete']);
+    Route::get('/verifikasi-jadwal-kalibrasi/{id}', [CalibrationScheduleController::class, 'verify'])->name('verifikasi-jadwal-kalibrasi');
 
     Route::get('/kalender-jadwal-kalibrasi', [CalendarCalibrationScheduleController::class, 'index'])->name('kalender-jadwal-kalibrasi');
 
@@ -102,7 +104,9 @@ Route::group(['middleware' => 'revalidate'], function () {
     Route::post('/tambah-jadwal-pengurasan', [DrainScheduleController::class, 'store'])->name('tambah-jadwal-pengurasan');
     Route::get('/edit-jadwal-pengurasan/{id}', [DrainScheduleController::class, 'update'])->name('edit-jadwal-pengurasan');
     Route::post('/edit-jadwal-pengurasan/{id}', [DrainScheduleController::class, 'update']);
+    Route::get('/detail-jadwal-pengurasan/{id}', [DrainScheduleController::class, 'detail'])->name('detail-jadwal-pengurasan');
     Route::get('/hapus-jadwal-pengurasan/{id}', [DrainScheduleController::class, 'delete']);
+    Route::get('/verifikasi-jadwal-pengurasan/{id}', [DrainScheduleController::class, 'verify'])->name('verifikasi-jadwal-pengurasan');
 
     Route::get('/kelola-checksheet-pengecheckan', [ChecksheetCheckingController::class, 'index'])->name('kelola-checksheet-pengecheckan');
     Route::get('/tambah-checksheet-pengecheckan', [ChecksheetCheckingController::class, 'store'])->name('tambah-checksheet-pengecheckan');

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2025 at 03:45 AM
+-- Generation Time: May 26, 2025 at 08:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -33,16 +33,20 @@ CREATE TABLE `calibration_schedules` (
   `date` date NOT NULL,
   `status` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `start_hour` varchar(20) DEFAULT NULL,
+  `end_hour` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `calibration_schedules`
 --
 
-INSERT INTO `calibration_schedules` (`id`, `tool`, `date`, `status`, `created_at`, `updated_at`) VALUES
-(2, 'Lig Thermometer', '2025-04-29', 'Belum Dilakukan', '2025-04-27 06:38:47', '2025-04-27 06:38:47'),
-(4, 'TDS Meter', '2025-04-29', 'Belum Dilakukan', '2025-04-29 08:48:47', '2025-04-29 08:48:47');
+INSERT INTO `calibration_schedules` (`id`, `tool`, `date`, `status`, `created_at`, `updated_at`, `start_hour`, `end_hour`) VALUES
+(2, 'Lig Thermometer', '2025-05-01', 'Belum Dilakukan', '2025-04-27 06:38:47', '2025-05-01 04:57:19', NULL, NULL),
+(4, 'TDS Meter', '2025-05-01', 'Sudah Dilakukan', '2025-04-29 08:48:47', '2025-05-01 04:57:31', NULL, NULL),
+(5, 'Lig Thermometer', '2025-05-27', 'Sudah Dilakukan', '2025-05-25 21:35:53', '2025-05-25 23:34:26', '12:00', '16:40'),
+(6, 'TDS Meter', '2025-05-26', 'Sudah Dilakukan', '2025-05-25 23:35:49', '2025-05-25 23:36:00', '16:35', '19:35');
 
 -- --------------------------------------------------------
 
@@ -84,8 +88,7 @@ CREATE TABLE `checksheet_treatments` (
 --
 
 INSERT INTO `checksheet_treatments` (`id`, `date`, `document_no`, `created_at`, `updated_at`) VALUES
-(4, '2025-04-27', 'C.04/01/08/QC/MCC-2024', '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(5, '2025-04-29', 'C.04/01/08/QC/MCC-2024', '2025-04-27 08:07:38', '2025-04-27 08:07:38');
+(10, '2025-05-22', 'C.04/01/08/QC/MCC-2024', '2025-05-22 00:37:26', '2025-05-22 00:37:26');
 
 -- --------------------------------------------------------
 
@@ -98,75 +101,47 @@ CREATE TABLE `checksheet_treatment_details` (
   `checksheet_treatment_id` bigint(20) NOT NULL,
   `process` varchar(255) NOT NULL,
   `parameter` varchar(255) NOT NULL,
-  `standard` varchar(255) NOT NULL,
+  `standard` varchar(255) DEFAULT NULL,
   `tools` varchar(255) NOT NULL,
-  `inspection_result_1` decimal(8,2) DEFAULT NULL,
-  `inspection_result_2` decimal(8,2) DEFAULT NULL,
+  `inspection_result_1` int(11) DEFAULT NULL,
+  `inspection_result_2` int(11) DEFAULT NULL,
   `judgement` varchar(255) DEFAULT NULL,
   `recommendation` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `min_standard` varchar(255) NOT NULL,
+  `max_standard` varchar(255) NOT NULL,
+  `unit` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `checksheet_treatment_details`
 --
 
-INSERT INTO `checksheet_treatment_details` (`id`, `checksheet_treatment_id`, `process`, `parameter`, `standard`, `tools`, `inspection_result_1`, `inspection_result_2`, `judgement`, `recommendation`, `created_at`, `updated_at`) VALUES
-(28, 4, 'Degreasing', 'Water Temperature', '45 ~ 55 °C', 'Temperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(29, 4, 'Degreasing', 'Total Alkali', '35 ~ 40 point', 'Elemeyer,pippet volume,phenolpthalein Ind.(PP),Solution 02', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(30, 4, 'Water Rinse', 'pH (supply)', '7 ~ 9', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(31, 4, 'Water Rinse', 'Contamination', '6 point', 'Elemeyer,pippet volume,phenolpthalein Ind. (PP),Solution 02', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(32, 4, 'Surfacing', 'Ph', '8 ~ 10', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(33, 4, 'Phosphating', 'Ph', '2 ~ 4', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(34, 4, 'Phosphating', 'Total Acid (TA)', '30 ~ 32 point', 'Elemeyer,pippet volume,phenolpthalein Ind. (PP),Solution 01', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(35, 4, 'Phosphating', 'Accelerator (AC)', '1 ~ 3 point', 'Elemeyer,pippet volume,Bromophenol Blue Ind. (BPB),Solution 01', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(36, 4, 'Phosphating', 'Accelerator (AC)', '6 ~ 8 point', 'Saccarometer,Titre Powder (sulfamic acid)', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(37, 4, 'Phosphating rinse 1', 'pH (supply)', '5 ~ 7', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(38, 4, 'Phosphating rinse 1', 'Contamination', '< 6 point', 'Elemeyer,pippet volume,phenolpthalein Ind. (PP),Solution 01', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(39, 4, 'Phosphating rinse 2', 'pH (supply)', '5 ~ 7', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(40, 4, 'Phosphating rinse 2', 'Contamination', '< 6 point', 'Elemeyer,pippet volume,phenolpthalein Ind. (PP),Solution 01', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(41, 4, 'CED Painting', 'Water temperature (Start process)', '27 ~ 30° C', 'Temperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(42, 4, 'CED Painting', 'Viscosity', 'Min 1,003 g/cm³', 'Hydrometer', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(43, 4, 'CED Painting', 'Ph', '5 ~ 7', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(44, 4, 'Anolyte', 'Aliran air', '400 ~ 700µs/cm', 'El.conductivity mtr', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(45, 4, 'Anolyte', 'Aliran air', 'o,5 ~ 1,5 lt/menit', 'Baker glass,stop watch', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(46, 4, 'Anolyte', 'Ph', 'o,5 ~ 1,5 lt/menit', 'Baker glass,stop watch', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(47, 4, 'CED Rinse 01', 'Ph', '5 ~ 7', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(48, 4, 'CED Rinse 02', 'Ph', '5 ~ 7', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(49, 4, 'Oven', 'Oven temperature', '180 ~ 200° C', 'emperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(50, 4, 'Oven', 'Menit ke', '15', 'emperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(51, 4, 'Oven', 'Menit ke', '45', 'emperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(52, 4, 'Oven', 'Menit ke', '60', 'emperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(53, 4, 'Oven', 'Menit ke', '90', 'emperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(54, 4, 'Oven', 'Menit ke', '120', 'emperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 03:10:06', '2025-04-27 03:10:06'),
-(55, 5, 'Degreasing', 'Water Temperature', '45 ~ 55 °C', 'Temperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(56, 5, 'Degreasing', 'Total Alkali', '35 ~ 40 point', 'Elemeyer,pippet volume,phenolpthalein Ind.(PP),Solution 02', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(57, 5, 'Water Rinse', 'pH (supply)', '7 ~ 9', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(58, 5, 'Water Rinse', 'Contamination', '6 point', 'Elemeyer,pippet volume,phenolpthalein Ind. (PP),Solution 02', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(59, 5, 'Surfacing', 'Ph', '8 ~ 10', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(60, 5, 'Phosphating', 'Ph', '2 ~ 4', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(61, 5, 'Phosphating', 'Total Acid (TA)', '30 ~ 32 point', 'Elemeyer,pippet volume,phenolpthalein Ind. (PP),Solution 01', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(62, 5, 'Phosphating', 'Accelerator (AC)', '1 ~ 3 point', 'Elemeyer,pippet volume,Bromophenol Blue Ind. (BPB),Solution 01', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(63, 5, 'Phosphating', 'Accelerator (AC)', '6 ~ 8 point', 'Saccarometer,Titre Powder (sulfamic acid)', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(64, 5, 'Phosphating rinse 1', 'pH (supply)', '5 ~ 7', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(65, 5, 'Phosphating rinse 1', 'Contamination', '< 6 point', 'Elemeyer,pippet volume,phenolpthalein Ind. (PP),Solution 01', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(66, 5, 'Phosphating rinse 2', 'pH (supply)', '5 ~ 7', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(67, 5, 'Phosphating rinse 2', 'Contamination', '< 6 point', 'Elemeyer,pippet volume,phenolpthalein Ind. (PP),Solution 01', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(68, 5, 'CED Painting', 'Water temperature (Start process)', '27 ~ 30° C', 'Temperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(69, 5, 'CED Painting', 'Viscosity', 'Min 1,003 g/cm³', 'Hydrometer', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(70, 5, 'CED Painting', 'Ph', '5 ~ 7', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(71, 5, 'Anolyte', 'Aliran air', '400 ~ 700µs/cm', 'El.conductivity mtr', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(72, 5, 'Anolyte', 'Aliran air', 'o,5 ~ 1,5 lt/menit', 'Baker glass,stop watch', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(73, 5, 'Anolyte', 'Ph', 'o,5 ~ 1,5 lt/menit', 'Baker glass,stop watch', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(74, 5, 'CED Rinse 01', 'Ph', '5 ~ 7', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(75, 5, 'CED Rinse 02', 'Ph', '5 ~ 7', 'PH Meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(76, 5, 'Oven', 'Oven temperature', '180 ~ 200° C', 'emperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(77, 5, 'Oven', 'Menit ke', '15', 'emperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(78, 5, 'Oven', 'Menit ke', '45', 'emperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(79, 5, 'Oven', 'Menit ke', '60', 'emperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(80, 5, 'Oven', 'Menit ke', '90', 'emperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38'),
-(81, 5, 'Oven', 'Menit ke', '120', 'emperatur meter', NULL, NULL, NULL, NULL, '2025-04-27 08:07:38', '2025-04-27 08:07:38');
+INSERT INTO `checksheet_treatment_details` (`id`, `checksheet_treatment_id`, `process`, `parameter`, `standard`, `tools`, `inspection_result_1`, `inspection_result_2`, `judgement`, `recommendation`, `created_at`, `updated_at`, `min_standard`, `max_standard`, `unit`) VALUES
+(147, 10, 'Degreasing', 'Water Temperature', NULL, 'Temperatur meter', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '40', '55', '°C'),
+(148, 10, 'Degreasing', 'Total Alkali', NULL, 'Elemeyer,pippet volume,phenolpthalein Ind.(PP),Solution 02', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '35', '40', 'point'),
+(149, 10, 'Water Rinse', 'pH (supply)', NULL, 'PH Meter', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '7', '9', NULL),
+(150, 10, 'Water Rinse', 'Contamination', NULL, 'Elemeyer,pippet volume,phenolpthalein Ind. (PP),Solution 02', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '0', '6', 'point'),
+(151, 10, 'Surfacing', 'Ph', NULL, 'PH Meter', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '8', '10', NULL),
+(152, 10, 'Phosphating', 'Ph', NULL, 'PH Meter', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '8', '10', NULL),
+(153, 10, 'Phosphating', 'Total Acid (TA)', NULL, 'Elemeyer,pippet volume,phenolpthalein Ind. (PP),Solution 01', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '30', '32', 'point'),
+(154, 10, 'Phosphating', 'Free Acid (FA)', NULL, 'Elemeyer,pippet volume,Bromophenol Blue Ind. (BPB),Solution 01', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '1', '3', 'point'),
+(155, 10, 'Phosphating', 'Accelerator (AC)', NULL, 'Saccarometer,Titre Powder (sulfamic acid)', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '6', '8', 'point'),
+(156, 10, 'Phosphating rinse 1', 'pH (supply)', NULL, 'PH Meter', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '7', '9', NULL),
+(157, 10, 'Phosphating rinse 1', 'Contamination', NULL, 'Elemeyer,pippet volume,phenolpthalein Ind. (PP),Solution 01', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '0', '6', 'point'),
+(158, 10, 'Phosphating rinse 2', 'pH (supply)', NULL, 'PH Meter', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '7', '9', NULL),
+(159, 10, 'Phosphating rinse 2', 'Contamination', NULL, 'Elemeyer,pippet volume,phenolpthalein Ind. (PP),Solution 01', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '0', '6', 'point'),
+(160, 10, 'CED Painting', 'Water temperature (Start process)', NULL, 'Temperatur meter', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '27', '30', '°C'),
+(161, 10, 'CED Painting', 'Ph', NULL, 'PH Meter', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '8', '10', NULL),
+(162, 10, 'Anolyte', 'Aliran air', NULL, 'El.conductivity mtr', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '400', '700', 'µs/cm'),
+(163, 10, 'CED Rinse 01', 'Ph', NULL, 'PH Meter', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '8', '10', NULL),
+(164, 10, 'CED Rinse 02', 'Ph', NULL, 'PH Meter', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '8', '10', NULL),
+(165, 10, 'Oven', 'Menit ke 15', NULL, 'Oven temperature', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '180', '200', '°C'),
+(166, 10, 'Oven', 'Menit ke 45', NULL, 'Oven temperature', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '180', '200', '°C'),
+(167, 10, 'Oven', 'Menit ke 60', NULL, 'Oven temperature', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '180', '200', '°C'),
+(168, 10, 'Oven', 'Menit ke 90', NULL, 'Oven temperature', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '180', '200', '°C'),
+(169, 10, 'Oven', 'Menit ke 120', NULL, 'Oven temperature', NULL, NULL, NULL, NULL, '2025-05-22 00:37:26', '2025-05-22 00:37:26', '180', '200', '°C');
 
 -- --------------------------------------------------------
 
@@ -200,17 +175,21 @@ CREATE TABLE `drain_schedules` (
   `date` date NOT NULL,
   `status` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `start_hour` varchar(20) DEFAULT NULL,
+  `end_hour` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `drain_schedules`
 --
 
-INSERT INTO `drain_schedules` (`id`, `tangki`, `date`, `status`, `created_at`, `updated_at`) VALUES
-(2, 'Phosphating Rinse 1', '2025-04-29', 'Belum Dilakukan', '2025-04-27 06:46:19', '2025-04-27 06:46:19'),
-(3, 'Phosphating Rinse 2', '2025-04-28', 'Belum Dilakukan', '2025-04-27 08:29:32', '2025-04-27 08:29:32'),
-(4, 'CED Rinse 01', '2025-04-29', 'Sudah Dilakukan', '2025-04-29 18:11:03', '2025-04-29 18:11:03');
+INSERT INTO `drain_schedules` (`id`, `tangki`, `date`, `status`, `created_at`, `updated_at`, `start_hour`, `end_hour`) VALUES
+(2, 'Phosphating Rinse 1', '2025-04-29', 'Belum Dilakukan', '2025-04-27 06:46:19', '2025-04-27 06:46:19', NULL, NULL),
+(3, 'Phosphating Rinse 2', '2025-05-01', 'Belum Dilakukan', '2025-04-27 08:29:32', '2025-05-01 05:00:40', NULL, NULL),
+(4, 'CED Rinse 01', '2025-05-01', 'Sudah Dilakukan', '2025-04-29 18:11:03', '2025-05-25 23:27:10', NULL, NULL),
+(5, 'Phosphating', '2025-05-26', 'Sudah Dilakukan', '2025-05-25 21:49:46', '2025-05-25 23:26:48', '11:49', '16:49'),
+(6, 'Phosphating Rinse 2', '2025-05-26', 'Sudah Dilakukan', '2025-05-25 23:37:25', '2025-05-25 23:37:33', '13:37', '18:37');
 
 -- --------------------------------------------------------
 
@@ -293,7 +272,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2025_04_27_092208_create_checksheet_treatment_details_table', 9),
 (16, '2025_04_27_125354_create_calibration_schedules_table', 10),
 (17, '2025_04_27_131328_create_drain_schedules_table', 11),
-(18, '2025_04_29_162248_create_checksheet_checkings_table', 12);
+(18, '2025_04_29_162248_create_checksheet_checkings_table', 12),
+(19, '2025_05_26_035801_update-calibration-schedule', 13),
+(20, '2025_05_26_044818_update-drain-schedule', 14);
 
 -- --------------------------------------------------------
 
@@ -469,7 +450,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `calibration_schedules`
 --
 ALTER TABLE `calibration_schedules`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `checksheet_checkings`
@@ -481,13 +462,13 @@ ALTER TABLE `checksheet_checkings`
 -- AUTO_INCREMENT for table `checksheet_treatments`
 --
 ALTER TABLE `checksheet_treatments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `checksheet_treatment_details`
 --
 ALTER TABLE `checksheet_treatment_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
 
 --
 -- AUTO_INCREMENT for table `cs_treatments`
@@ -499,7 +480,7 @@ ALTER TABLE `cs_treatments`
 -- AUTO_INCREMENT for table `drain_schedules`
 --
 ALTER TABLE `drain_schedules`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -523,7 +504,7 @@ ALTER TABLE `jadwal_kalibrasis`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`

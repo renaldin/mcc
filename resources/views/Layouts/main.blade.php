@@ -77,7 +77,7 @@
                                 Notifikasi</span>
                             <div class="dropdown-divider"></div>
                             @foreach ($notifCalibratioSchedule as $item)
-                                <a href="/edit-jadwal-kalibrasi/{{ $item->id }}" class="dropdown-item">
+                                <a href="/detail-jadwal-kalibrasi/{{ $item->id }}" class="dropdown-item">
                                     <i class="fas fa-file mr-2"></i> {{ $item->tool }}
                                     <span
                                         class="float-right text-muted text-sm">{{ date('d F Y', strtotime($item->date)) }}</span>
@@ -106,7 +106,7 @@
                                 Notifikasi</span>
                             <div class="dropdown-divider"></div>
                             @foreach ($notifDrainSchedule as $item)
-                                <a href="/edit-jadwal-pengurasan/{{ $item->id }}" class="dropdown-item">
+                                <a href="/detail-jadwal-pengurasan/{{ $item->id }}" class="dropdown-item">
                                     <i class="fas fa-file mr-2"></i> {{ $item->tangki }}
                                     <span
                                         class="float-right text-muted text-sm">{{ date('d F Y', strtotime($item->date)) }}</span>
@@ -243,15 +243,6 @@
                                     <i class="nav-icon fas fa-tools"></i>
                                     <p class="d-inline ml-2">Kelola Jadwal Pengurasan Tangki</p>
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <form method="POST" action="{{ route('logout') }}" id="logout-form">
-                                    @csrf
-                                    <a href="#" class="nav-link" onclick="confirmLogout(event)">
-                                        <i class="nav-icon fas fa-power-off"></i>
-                                        <p>Logout</p>
-                                    </a>
-                                </form>
                             </li>
                         @endif
                         <li class="nav-item">
@@ -515,6 +506,43 @@
 
                     document.body.insertAdjacentHTML('beforeend', modalHtml);
                     $('#deleteModal').modal('show');
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.addEventListener('click', function(event) {
+                if (event.target.classList.contains('btn-verifikasi')) {
+                    const verifikasiModalHref = event.target.getAttribute('data-href');
+                    const verifikasiModalContent = event.target.getAttribute('data-content');
+                    const verifikasiButton = event.target.getAttribute('data-button') || null;
+
+                    const existingModal = document.getElementById('verifikasiModal');
+                    if (existingModal) {
+                        existingModal.remove();
+                    }
+
+                    const modalHtml = `
+                    <div class="modal fade" id="verifikasiModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">${verifikasiButton}</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <p>${verifikasiModalContent}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a href="${verifikasiModalHref}" type="button" class="btn btn-primary">${verifikasiButton ? verifikasiButton : 'Verifikasi'}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                    document.body.insertAdjacentHTML('beforeend', modalHtml);
+                    $('#verifikasiModal').modal('show');
                 }
             });
         });

@@ -25,6 +25,21 @@ class CalibrationScheduleController extends Controller
         return view('calibrationSchedule.index', $data);
     }
 
+    public function detail($calibrationScheduleId)
+    {
+        if (!Session()->get('role')) {
+            return redirect()->route('login');
+        }
+
+        $data = [
+            'title'     => 'Detail Jadwal Kalibrasi',
+            'detail'    => CalibrationSchedule::find($calibrationScheduleId),
+            'form'      => 'Detail',
+            'user'      => User::find(Session()->get('id_user'))
+        ];
+        return view('calibrationSchedule.form', $data);
+    }
+
     public function store(Request $request)
     {
         if (!Session()->get('role')) {
@@ -44,13 +59,16 @@ class CalibrationScheduleController extends Controller
                 $request->validate([
                     'tool'          => 'required',
                     'date'          => 'required',
-                    'status'        => 'required',
+                    'start_hour'    => 'required',
+                    'end_hour'      => 'required',
                 ]);
 
                 $calibrationSchedule = new CalibrationSchedule();
                 $calibrationSchedule->tool      = $request->tool;
                 $calibrationSchedule->date      = $request->date;
-                $calibrationSchedule->status    = $request->status;
+                $calibrationSchedule->status    = 'Belum Dilakukan';
+                $calibrationSchedule->start_hour    = $request->start_hour;
+                $calibrationSchedule->end_hour      = $request->end_hour;
                 $calibrationSchedule->save();
 
                 DB::commit();
@@ -82,13 +100,15 @@ class CalibrationScheduleController extends Controller
                 $request->validate([
                     'tool'          => 'required',
                     'date'          => 'required',
-                    'status'        => 'required',
+                    'start_hour'    => 'required',
+                    'end_hour'      => 'required',
                 ]);
 
                 $calibrationSchedule = CalibrationSchedule::find($calibrationScheduleId);
                 $calibrationSchedule->tool      = $request->tool;
                 $calibrationSchedule->date      = $request->date;
-                $calibrationSchedule->status    = $request->status;
+                $calibrationSchedule->start_hour    = $request->start_hour;
+                $calibrationSchedule->end_hour      = $request->end_hour;
                 $calibrationSchedule->save();
 
                 DB::commit();
@@ -110,5 +130,25 @@ class CalibrationScheduleController extends Controller
         $calibrationSchedule->delete();
 
         return back()->with('success', 'Data berhasil dihapus!');
+    }
+
+    public function verify($calibrationScheduleId)
+    {
+        if (!Session()->get('role')) {
+            return redirect()->route('login');
+        }
+
+        DB::beginTransaction();
+        try {
+            $calibrationSchedule = CalibrationSchedule::find($calibrationScheduleId);
+            $calibrationSchedule->status      = 'Sudah Dilakukan';
+            $calibrationSchedule->save();
+
+            DB::commit();
+            return redirect()->route('kelola-jadwal-kalibrasi')->with('success', 'Data berhasil diverifikasi!');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with('fail', $th->getMessage());
+        }
     }
 }
