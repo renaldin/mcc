@@ -496,7 +496,7 @@
                                     <p>${deleteModalContent}</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Tidak</button>
                                     <a href="${deleteModalHref}" type="button" class="btn btn-danger">${deleteButton ? deleteButton : 'Hapus'}</a>
                                 </div>
                             </div>
@@ -533,8 +533,8 @@
                                     <p>${verifikasiModalContent}</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <a href="${verifikasiModalHref}" type="button" class="btn btn-primary">${verifikasiButton ? verifikasiButton : 'Verifikasi'}</a>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Tidak</button>
+                                    <a href="${verifikasiModalHref}" type="button" class="btn btn-danger">${verifikasiButton ? verifikasiButton : 'Verifikasi'}</a>
                                 </div>
                             </div>
                         </div>
@@ -570,7 +570,7 @@
                                     <p>${deleteModalContent}</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Tidak</button>
                                     <a href="${deleteModalHref}" type="button" class="btn btn-danger">${deleteButton ? deleteButton : 'Hapus'}</a>
                                 </div>
                             </div>

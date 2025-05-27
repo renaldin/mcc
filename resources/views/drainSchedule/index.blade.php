@@ -1,47 +1,53 @@
 @extends('Layouts.main')
 
 @section('content')
-<div class="container-fluid">
-    <div class="card">
-        <div class="card-header">
-            <a href="{{ route('tambah-jadwal-pengurasan') }}" class="btn btn-primary float-right" style="margin-right: 5px;"> Tambah Data</a>
-            <a href="{{ route('kalender-jadwal-pengurasan') }}" class="btn btn-primary float-right" style="margin-right: 5px;"> Kalender</a>
-        </div>
-        <div class="card-header">
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if (session('fail'))
-                <div class="alert alert-danger">
-                    {{ session('fail') }}
-                </div>
-            @endif
-        </div>
-        <div class="card-body">
-            <table class="table table-bordered" id="data-table-one">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Tangki</th>
-                        <th>Tanggal</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $no = 1;
-                    @endphp
-                    @foreach ($drainScheduleList as $item)
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <a href="{{ route('tambah-jadwal-pengurasan') }}" class="btn btn-primary float-right"
+                    style="margin-right: 5px;"> Tambah Data</a>
+                <a href="{{ route('kalender-jadwal-pengurasan') }}" class="btn btn-primary float-right"
+                    style="margin-right: 5px;"> Kalender</a>
+            </div>
+            <div class="card-header">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('fail'))
+                    <div class="alert alert-danger">
+                        {{ session('fail') }}
+                    </div>
+                @endif
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered" id="data-table-one">
+                    <thead>
                         <tr>
-                            <td>{{ $no++ }}</td>
-                            <td>{{ $item->tangki }}</td>
-                            <td>{{ date('d F Y', strtotime($item->date)) }}</td>
-                            <td>{{ $item->status }}</td>
-                            <td>
-                                <div class="flex align-items-center list-user-action">
+                            <th>No</th>
+                            <th>Tangki</th>
+                            <th>Tanggal</th>
+                            <th>Jam Pelaksanaan</th>
+                            <th>Jam Selesai</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                            $no = 1;
+                        @endphp
+                        @foreach ($drainScheduleList as $item)
+                            <tr>
+                                <td>{{ $no++ }}</td>
+                                <td>{{ $item->tangki }}</td>
+                                <td>{{ date('d F Y', strtotime($item->date)) }}</td>
+                                <td>{{ $item->start_hour }}</td>
+                                <td>{{ $item->end_hour }}</td>
+                                <td>{{ $item->status }}</td>
+                                <td>
+                                    {{-- <div class="flex align-items-center list-user-action">
                                     <a href="/detail-jadwal-pengurasan/{{ $item->id }}"
                                         class="btn btn-sm btn-icon btn-primary" data-toggle="tooltip"
                                         data-placement="top" title="Detail" data-original-title="Detail">
@@ -62,23 +68,22 @@
                                                     fill="white"></circle>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </a> --}}
                                     <a href="/edit-jadwal-pengurasan/{{ $item->id }}"
-                                        class="btn btn-sm btn-icon btn-success" data-toggle="tooltip"
-                                        title="Edit"><span class="btn-inner"><svg width="20"
-                                                viewBox="0 0 24 24" fill="none"
+                                        class="btn btn-sm btn-icon btn-success" data-toggle="tooltip" title="Edit"><span
+                                            class="btn-inner"><svg width="20" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M11.4925 2.78906H7.75349C4.67849 2.78906 2.75049 4.96606 2.75049 8.04806V16.3621C2.75049 19.4441 4.66949 21.6211 7.75349 21.6211H16.5775C19.6625 21.6211 21.5815 19.4441 21.5815 16.3621V12.3341"
-                                                    stroke="currentColor" stroke-width="1.5"
-                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                                     d="M8.82812 10.921L16.3011 3.44799C17.2321 2.51799 18.7411 2.51799 19.6721 3.44799L20.8891 4.66499C21.8201 5.59599 21.8201 7.10599 20.8891 8.03599L13.3801 15.545C12.9731 15.952 12.4211 16.181 11.8451 16.181H8.09912L8.19312 12.401C8.20712 11.845 8.43412 11.315 8.82812 10.921Z"
-                                                    stroke="currentColor" stroke-width="1.5"
-                                                    stroke-linecap="round" stroke-linejoin="round"></path>
-                                                <path d="M15.1655 4.60254L19.7315 9.16854"
-                                                    stroke="currentColor" stroke-width="1.5"
-                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                                <path d="M15.1655 4.60254L19.7315 9.16854" stroke="currentColor"
+                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                                </path>
                                             </svg></span>
                                     </a>
                                     {{-- <button type="button"
@@ -106,14 +111,13 @@
                                                     stroke-linecap="round" stroke-linejoin="round"></path>
                                             </svg></span> --}}
                                     </button>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
+            </div>
+            </td>
+            </tr>
+            @endforeach
+            </tbody>
             </table>
         </div>
     </div>
-</div>
-
+    </div>
 @endsection
