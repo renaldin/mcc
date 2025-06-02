@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DrainSchedule;
 use App\Models\User;
+use App\Notifications\NewTransactionNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -70,6 +71,10 @@ class DrainScheduleController extends Controller
                 $drainSchedule->start_hour  = $request->start_hour;
                 $drainSchedule->end_hour    = $request->end_hour;
                 $drainSchedule->save();
+
+                foreach (User::where('role', 'Maintenance')->get() as $user) {
+                    $user->notify(new NewTransactionNotification("Jadwal pengurasan tangki baru telah ditambahkan!"));
+                }
 
                 DB::commit();
                 return redirect()->route('kelola-jadwal-pengurasan')->with('success', 'Data berhasil ditambahkan!');

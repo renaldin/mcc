@@ -1,4 +1,5 @@
 @php
+    date_default_timezone_set('Asia/Jakarta');
     $notifCalibratioSchedule = \App\Models\CalibrationSchedule::where('date', date('Y-m-d'))
         ->where('status', 'Belum Dilakukan')
         ->orderBy('id', 'DESC')
@@ -602,6 +603,69 @@
                 }
             });
         }
+    </script>
+
+    <audio id="notifSound" src="{{ asset('notif.mp3') }}" preload="auto"></audio>
+
+    {{-- <script>
+        // let notifCount = {{ $notifCountInitial ?? 0 }};
+
+        function playSound() {
+            document.getElementById('notifSound').play();
+        }
+
+        function fetchNotifications() {
+            fetch("{{ route('notifications.fetch') }}")
+                .then(res => res.json())
+                .then(data => {
+                    if (!data || data.length === 0) return;
+                    console.log('DATAAA', data)
+
+                    let latestNotifId = data[0].id;
+                    let lastNotifId = sessionStorage.getItem('lastNotifId');
+
+                    console.log('DATAAA 2', latestNotifId, lastNotifId)
+                    if (lastNotifId !== latestNotifId) {
+                        playSound();
+                        sessionStorage.setItem('lastNotifId', latestNotifId);
+                    }
+
+                    let html = '';
+                    data.forEach(notif => {
+                        html += `<li>${notif.data.message}</li>`;
+                    });
+
+                    document.getElementById('notifList').innerHTML = html;
+                });
+        }
+
+        setInterval(fetchNotifications, 4000);
+    </script> --}}
+    <script>
+        function playSound() {
+            document.getElementById('notifSound').play();
+        }
+
+        function fetchNotifications() {
+            fetch("{{ route('notifications.fetch') }}")
+                .then(res => res.json())
+                .then(data => {
+                    // Cek apakah harus bunyi
+                    if (data.shouldPlaySound) {
+                        playSound();
+                    }
+
+                    // Render notifikasi jika perlu
+                    let html = '';
+                    data.notifications.forEach(notif => {
+                        html += `<li>${notif.data.message}</li>`;
+                    });
+
+                    document.getElementById('notifList').innerHTML = html;
+                });
+        }
+
+        setInterval(fetchNotifications, 5000);
     </script>
 </body>
 

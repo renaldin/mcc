@@ -128,3 +128,7 @@ Route::group(['middleware' => 'maintenance'], function () {
     Route::get('/profile-maintenance', [UserController::class, 'profileMaintenance'])->name('profile.maintenance');
     Route::post('/profile-maintenance/update', [UserController::class, 'updateProfileMaintenance'])->name('profile.maintenance.update');
 });
+
+Route::get('/notifications/fetch', [App\Http\Controllers\NotificationController::class, 'fetch'])->name('notifications.fetch');
+Route::post('/notifications/mark-as-read', [App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+

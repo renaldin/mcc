@@ -6,6 +6,7 @@ use App\Models\CalibrationSchedule;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\NewTransactionNotification;
 
 class CalibrationScheduleController extends Controller
 {
@@ -70,6 +71,10 @@ class CalibrationScheduleController extends Controller
                 $calibrationSchedule->start_hour    = $request->start_hour;
                 $calibrationSchedule->end_hour      = $request->end_hour;
                 $calibrationSchedule->save();
+
+                foreach (User::where('role', 'QC')->get() as $user) {
+                    $user->notify(new NewTransactionNotification("Jadwal kalibrasi baru telah ditambahkan!"));
+                }
 
                 DB::commit();
                 return redirect()->route('kelola-jadwal-kalibrasi')->with('success', 'Data berhasil ditambahkan!');
