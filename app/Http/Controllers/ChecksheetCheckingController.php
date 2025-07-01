@@ -19,7 +19,7 @@ class ChecksheetCheckingController extends Controller
 
         $checksheetCheckingList = ChecksheetChecking::orderBy('id', 'DESC');
         $data = [
-            'title'                     => 'Kelola Checksheet Pengecheckan',
+            'title'                     => 'Kelola Check Sheet Pengecekan',
             'checksheetCheckingList'    => $checksheetCheckingList->get(),
             'user'                      => User::find(Session()->get('id_user'))
         ];
@@ -34,7 +34,7 @@ class ChecksheetCheckingController extends Controller
 
         if(!$request->date) {
             $data = [
-                'title'         => 'Tambah Checksheet Pengecheckan',
+                'title'         => 'Tambah Check Sheet Pengecekan',
                 'form'          => 'Tambah',
                 'user'          => User::find(Session()->get('id_user'))
             ];
@@ -83,7 +83,7 @@ class ChecksheetCheckingController extends Controller
 
         if(!$request->date) {
             $data = [
-                'title'     => 'Edit Checksheet Pengecheckan',
+                'title'     => 'Edit Check Sheet Pengecekan',
                 'detail'    => ChecksheetChecking::find($checksheetCheckingId),
                 'form'      => 'Edit',
                 'user'      => User::find(Session()->get('id_user'))
@@ -144,7 +144,7 @@ class ChecksheetCheckingController extends Controller
         
         return view('checksheetChecking.laporan', [
             'checksheetCheckingList' => $checksheetCheckingList,
-            'title' => 'Laporan Checksheet Pengecekan',
+            'title' => 'Laporan Check Sheet Pengecekan',
             'user' => $user
         ]);
     }
@@ -156,7 +156,7 @@ class ChecksheetCheckingController extends Controller
 
     $pdf = Pdf::loadView('checksheetChecking.laporan_pdf', [
         'checksheetCheckingList' => $checksheetCheckingList,
-        'title' => 'Laporan Checksheet Pengecekan',
+        'title' => 'Laporan Check Sheet Pengecekan',
         'user' => $user
     ]);
     

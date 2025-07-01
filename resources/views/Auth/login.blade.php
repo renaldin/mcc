@@ -76,12 +76,12 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="logo">
-                            <img src="{{ asset('logoMCC.jpg') }}" alt="Logo PT. Masato Catur Coating"
+                            <img src="{{ asset('logo-MCC.png') }}" alt="Logo PT. Masato Catur Coating"
                                 style="width: 40px; height: 40px; margin-right: 10px; border-radius: 50%;">
-                            PT. Masato Catur Coating
+                            PT Masato Catur Coating
                         </div>
                         <i class="fas fa-user-circle"></i>
-                        <h3 class="mt-2">Login</h3>
+                        <h4 class="mt-2">Login</h4>
                     </div>
                     <div class="card-body">
                         {{-- Display success message --}}

@@ -28,6 +28,7 @@
                                     <option value="SIM Thickness Gauge" @if($form === "Tambah" && old("tool") === "SIM Thickness Gauge") selected @elseif(($form === "Edit" || $form === 'Detail') && $detail->tool === "SIM Thickness Gauge") selected @endif>SIM Thickness Gauge</option>
                                     <option value="PH Meter" @if($form === "Tambah" && old("tool") === "PH Meter") selected @elseif(($form === "Edit" || $form === 'Detail') && $detail->tool === "PH Meter") selected @endif>PH Meter</option>
                                     <option value="Hydrometer" @if($form === "Tambah" && old("tool") === "Hydrometer") selected @elseif(($form === "Edit" || $form === 'Detail') && $detail->tool === "Hydrometer") selected @endif>Hydrometer</option>
+                                    <option value="Thickness" @if($form === "Tambah" && old("tool") === "Thickness") selected @elseif(($form === "Edit" || $form === 'Detail') && $detail->tool === "Thickness") selected @endif>Thickness</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6">

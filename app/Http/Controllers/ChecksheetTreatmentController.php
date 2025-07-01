@@ -20,7 +20,7 @@ class ChecksheetTreatmentController extends Controller
 
         $checksheetTreatmentList = ChecksheetTreatment::orderBy('id', 'DESC');
         $data = [
-            'title'                     => 'Kelola Checksheet Treatment',
+            'title'                     => 'Kelola Check Sheet Treatment',
             'checksheetTreatmentList'   => $checksheetTreatmentList->get(),
             'user'                      => User::find(Session()->get('id_user'))
         ];
@@ -35,7 +35,7 @@ class ChecksheetTreatmentController extends Controller
 
         if(!$request->date) {
             $data = [
-                'title'         => 'Tambah Checksheet Treatment',
+                'title'         => 'Tambah Check Sheet Treatment',
                 'form'          => 'Tambah',
                 'document_no'   => 'C.04/01/08/QC/MCC-2024',
                 'user'          => User::find(Session()->get('id_user'))
@@ -293,7 +293,7 @@ class ChecksheetTreatmentController extends Controller
 
         if(!$request->date) {
             $data = [
-                'title'     => 'Edit Checksheet Treatment',
+                'title'     => 'Edit Check Sheet Treatment',
                 'detail'    => ChecksheetTreatment::find($checksheetTreatmentId),
                 'form'      => 'Edit',
                 'user'      => User::find(Session()->get('id_user'))
@@ -344,7 +344,7 @@ class ChecksheetTreatmentController extends Controller
 
     return view('checksheetTreatment.laporan', [
         'checksheetTreatmentList' => $checksheetTreatmentList,
-        'title' => 'Laporan Checksheet Treatment',
+        'title' => 'Laporan Check Sheet Treatment',
         'user' => $user
     ]);
 }
@@ -356,7 +356,7 @@ public function cetakPDF()
 
     $pdf = Pdf::loadView('checksheetTreatment.laporan_pdf', [
         'checksheetTreatmentList' => $checksheetTreatmentList,
-        'title' => 'Laporan Checksheet Treatment',
+        'title' => 'Laporan Check Sheet Treatment',
         'user' => $user
     ]);
 

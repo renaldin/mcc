@@ -23,9 +23,9 @@
                                 class="btn btn-sm btn-danger" title="Cetak PDF">
                                 <i class="fas fa-file-pdf"></i> PDF
                             </a>
-                            <button onclick="window.print()" class="btn btn-sm btn-primary" title="Print">
+                            {{-- <button onclick="window.print()" class="btn btn-sm btn-primary" title="Print">
                                 <i class="fas fa-print"></i>
-                            </button>
+                            </button> --}}
                         </td>
                     </tr>
                 @endforeach

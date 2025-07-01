@@ -51,6 +51,50 @@
     <link rel="stylesheet" href="{{ asset('plugins/fullcalendar/main.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <head>
+    <!-- existing CSS -->
+    <link rel="stylesheet" href="{{ asset('path/to/adminlte.css') }}">
+
+<style>
+    /* CSS perbaikan untuk sidebar */
+    .main-sidebar .nav-item .nav-link {
+        display: flex; /* Mengaktifkan Flexbox untuk tata letak ikon dan teks */
+        align-items: center; /* Menengahkan item (ikon dan teks) secara vertikal */
+        /* Pastikan padding ini cukup untuk teks yang membungkus tanpa membuat terlalu banyak ruang */
+        padding-top: 8px; /* Menambah padding atas untuk ruang */
+        padding-bottom: 8px; /* Menambah padding bawah untuk ruang */
+        padding-left: 20px; /* MENINGKATKAN padding kiri untuk menggeser ikon dan teks ke kanan. Sesuaikan nilai ini. */
+        padding-right: 8px; /* Tambah padding kanan agar teks tidak terlalu dekat dengan tepi sidebar */
+    }
+
+    .main-sidebar .nav-item .nav-link .nav-icon {
+        margin-right: 12px; /* MENINGKATKAN jarak antara ikon dan teks. Sesuaikan nilai ini. */
+        width: 20px; /* Memberi lebar tetap pada ikon container untuk perataan konsisten */
+        text-align: center; /* Memusatkan ikon di dalam lebarnya */
+        /* Menetralkan margin-top atau margin-bottom default jika ada */
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .main-sidebar .nav-item .nav-link span {
+        white-space: normal; /* Memungkinkan teks untuk mengalir ke baris berikutnya */
+        word-break: break-word; /* Memecah kata-kata panjang agar tidak meluap */
+        flex-grow: 1; /* Memungkinkan span untuk mengambil semua ruang yang tersedia */
+        line-height: 1.2; /* Mengurangi tinggi baris untuk teks yang membungkus */
+        /* Menetralkan margin dan padding dari kelas Bootstrap seperti ml-2 atau pl-2 */
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        margin-right: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    /* Override untuk AdminLTE agar item nav tidak memiliki padding kiri bawaan yang berlebihan */
+    .nav-sidebar .nav-item > .nav-link {
+        padding-left: 0 !important; /* Menetralkan padding-left default dari AdminLTE pada nav-link */
+    }
+</style>
+
+</head>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -193,9 +237,9 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('kelola-checksheet-treatment') }}"
-                                    class="nav-link @if ($title == 'Kelola Check sheet Treatment' || $title == 'Detail Check sheet Treatment') active @endif">
+                                    class="nav-link  @if ($title == 'Kelola Check sheet Treatment' || $title == 'Detail Check sheet Treatment') active @endif">
                                     <i class="nav-icon fas fa-edit"></i>
-                                    <p class="d-inline ml-2">Kelola Check Sheet Treatment</p>
+                                    <p> Kelola Check Sheet Treatment</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -269,12 +313,12 @@
                         <div class="col-sm-6">
                             <h1>{{ $title }}</h1>
                         </div>
-                        <div class="col-sm-6">
+                        {{-- <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">{{ $title }}</li>
                             </ol>
-                        </div>
+                        </div> --}}
                     </div>
                 </div><!-- /.container-fluid -->
             </section>

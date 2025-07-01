@@ -74,7 +74,7 @@
                 </div>
                 <br>
                 <div class="forn-group">
-                    <a href="{{ route('kelola-checksheet-treatment') }}" class="btn btn-light">Kembali</a>
+                    <a href="{{ route('kelola-checksheet-treatment') }}" class="btn btn-primary">Kembali</a>
                 </div>
             </div>
         </div>

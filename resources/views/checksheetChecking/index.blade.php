@@ -52,9 +52,9 @@
                             <td>{{ $item->tunggu_repair }}</td>
                             <td>{{ $item->total_check }}</td>
                             <td>
-                                <div class="flex align-items-center list-user-action">
+                                <div class="d-flex align-items-center list-user-action">
                                     <a href="/edit-checksheet-pengecheckan/{{ $item->id }}"
-                                        class="btn btn-sm btn-icon btn-success" data-toggle="tooltip"
+                                        class="btn btn-sm btn-icon btn-success me-1" data-toggle="tooltip"
                                         title="Edit"><span class="btn-inner"><svg width="20"
                                                 viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
